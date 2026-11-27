@@ -1,6 +1,6 @@
 package com.glidebrowser.video
 
-/** Aloha/Soul/Via jaisa detection — open-source pattern (QuickTube / super-video-downloader / HaizhuBrowser).
+/** Aloha/Soul/Via-style detection — open-source pattern (QuickTube / super-video-downloader / HaizhuBrowser).
  *  Candidates arrive from both shouldInterceptRequest and the JS bridge; dedup + classify happens here.
  */
 enum class MediaKind { DIRECT_MP4, HLS_M3U8, DASH_MPD, AUDIO, UNKNOWN }
