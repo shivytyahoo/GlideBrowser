@@ -3,15 +3,15 @@
 ## Slogan (final)
 **Glide Fast. Browse Free.**
 
-Runner-ups (agar kabhi badalna ho):
+Runner-ups (if it ever changes):
 - Surf Smooth. Stay Private.
 - No Ads. No Trackers. Just Glide.
-- Halka browser, bhaari privacy. (Hinglish)
+- A light browser, heavy on privacy.
 
 ## Logo
 - `docs/logo.png` — G + wing + shield, indigo/violet + cyan
-- Android launcher: `androidApp/src/main/res/mipmap-xxxhdpi/ic_launcher.webp` (same art, adaptive icon ke liye foreground me use karo)
-- GitHub banner: `docs/banner.png` — 1280x640 jaisa wide banner, README ke top pe laga hai
+- Android launcher: `androidApp/src/main/res/mipmap-xxxhdpi/ic_launcher.webp` (same art, use it as the foreground for the adaptive icon)
+- GitHub banner: `docs/banner.png` — wide banner, 1280x640 style, placed at the top of the README
 
 ## Colors
 - Background (dark): `#12102B` — banner / splash background
@@ -20,4 +20,4 @@ Runner-ups (agar kabhi badalna ho):
 - Text: `#E8F6FF` (on dark)
 
 ## Splash screen
-`ui/SplashScreen.kt` — logo spring scale + fade, naam slide-up, slogan fade, progress bar. Total 1.8s, phir `BrowserApp` khulta hai. Animation sirf splash dikhte waqt chalti hai.
+`ui/SplashScreen.kt` — logo spring scale + fade, name slide-up, slogan fade, progress bar. Total 1.8s, then `BrowserApp` opens. The animation only runs while the splash is visible.

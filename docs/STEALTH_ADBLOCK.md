@@ -1,14 +1,14 @@
-# Stealth AdBlocker — website detect na kar paye
+# Stealth AdBlocker — So Websites Cannot Detect It
 
-Seedha block karne se site ko pata chal jata hai: ad request fail hota hai, `div` gayab hota hai, ya bait element ka size 0 hota hai. ShadowBlock paper (WWW'19) ka idea: DOM waisa hi dikhao jaise adblock na ho, par user ko ad dikhao mat.
+Blocking directly gives it away: the ad request fails, a `div` disappears, or a bait element becomes size 0. The ShadowBlock paper (WWW'19) idea: show the DOM as if there were no adblocker, but do not show the ad to the user.
 
-## GlideBrowser me 3 layers (S-AdShield se liya)
-1. **DNS layer (S-AdShield):** blocked domain → local stub IP `10.10.10.3`. Wahan chhota stub server empty-but-valid jawab deta hai (1x1 gif, empty JS, empty HTML). Request fail nahi hoti, isliye `onerror` / fetch-fail wale detectors trigger nahi hote. Anti-Detect OFF ho to NXDOMAIN.
-2. **Request layer (WebView):** `shouldInterceptRequest` me EasyList/`||domain` match ho to `WebResourceResponse("text/plain", "utf-8", emptyStream)` return karo — `null` mat return karo (null se fail dikhta hai). Sirf third-party ad/tracker domains, first-party content ko chhedo mat. Allowlist (`@@`) pehle check karo.
-3. **Cosmetic layer (JS/CSS):** ad slots ko `display:none` karne ke bajaye unki height collapse karo aur bait elements (`#ad-test`, `ins.adsbygoogle`) ko as-it-is rehne do — sirf unke andar ka content empty rakho. `window` pe adblock-detect wale globals ko fake mat karo, wo fingerprint ban jata hai.
+## Three layers in GlideBrowser (taken from S-AdShield)
+1. **DNS layer (S-AdShield):** blocked domain → local stub IP `10.10.10.3`. A small stub server there returns an empty-but-valid response (1x1 gif, empty JS, empty HTML). The request does not fail, so `onerror` / fetch-fail detectors are not triggered. With Anti-Detect OFF, the answer is NXDOMAIN.
+2. **Request layer (WebView):** in `shouldInterceptRequest`, if an EasyList / `||domain` rule matches, return `WebResourceResponse("text/plain", "utf-8", emptyStream)` — do not return `null` (null looks like a failure). Only third-party ad / tracker domains; first-party content is left alone. Check the allowlist (`@@`) first.
+3. **Cosmetic layer (JS/CSS):** instead of hiding ad slots with `display:none`, collapse their height and leave bait elements (`#ad-test`, `ins.adsbygoogle`) as they are — only keep the content inside them empty. Do not fake adblock-detect globals on `window`; that becomes a fingerprint.
 
 ## Lists
-StevenBlack + HaGeZi Multi PRO + uBlock DNS + ad-network pack + Streaming SSAI pack (Google DAI/IMA, FreeWheel, SpotX...). Suffix-walk matching: `doubleclick.net` block karne se `ads.doubleclick.net` bhi block. Update: `Lists -> Update now`, Wi-Fi only option.
+StevenBlack + HaGeZi Multi PRO + uBlock DNS + ad-network pack + Streaming SSAI pack (Google DAI/IMA, FreeWheel, SpotX...). Suffix-walk matching: blocking `doubleclick.net` also blocks `ads.doubleclick.net`. Update: `Lists -> Update now`, Wi-Fi only option.
 
 ## Honest limit
-Same-host ads (content aur ad ek hi CDN se) DNS/request se alag nahi hote. Ye koi bhi adblocker nahi kar sakta bina page tode.
+Same-host ads (content and ad from the same CDN) cannot be separated at DNS / request level. No adblocker can do that without breaking the page.
