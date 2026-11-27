@@ -18,7 +18,15 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       # gradlew loses its exec bit when uploaded via the GitHub web UI.
       - run: chmod +x gradlew
+      - name: Decode release keystore
+        env: { KEYSTORE_BASE64: ${{ secrets.GLIDEBROWSER_KEYSTORE_BASE64 }} }
+        run: echo "$KEYSTORE_BASE64" | base64 -d > androidApp/release.keystore
       - run: ./gradlew :androidApp:assembleRelease --stacktrace
+        env:
+          KEYSTORE_PATH: androidApp/release.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.GLIDEBROWSER_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.GLIDEBROWSER_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.GLIDEBROWSER_KEY_PASSWORD }}
       - uses: actions/upload-artifact@v4
         with: { name: GlideBrowser-android, path: androidApp/build/outputs/apk/release/ }
   windows:
