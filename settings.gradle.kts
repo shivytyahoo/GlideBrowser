@@ -7,3 +7,10 @@ pluginManagement {
 }
 rootProject.name = "GlideBrowser"
 include(":shared", ":androidApp", ":desktopApp")
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
