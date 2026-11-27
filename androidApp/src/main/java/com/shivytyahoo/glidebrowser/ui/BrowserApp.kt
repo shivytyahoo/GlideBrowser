@@ -93,10 +93,10 @@ private fun com.glidebrowser.video.DetectedMedia.fileName() = url.substringAfter
         item { Text("AdBlock — S-AdShield", style = MaterialTheme.typography.titleMedium)
             Row { Text("Stealth AdBlock"); Switch(checked = s.adBlockEnabled, onCheckedChange = { onChange(s.copy(adBlockEnabled = it)) }) }
             Row { Text("Anti-Detect (stub reply)"); Switch(checked = s.antiDetect, onCheckedChange = { onChange(s.copy(antiDetect = it)) }) }
-            Text("Blocked: DNS + request + cosmetic. Site ko pata nahi chalta.", style = MaterialTheme.typography.bodySmall) }
+            Text("Blocked: DNS + request + cosmetic. Sites cannot tell that blocking is on.", style = MaterialTheme.typography.bodySmall) }
         item { Text("VPN — IPChakra", style = MaterialTheme.typography.titleMedium)
             Row { Text("VPN"); Switch(checked = s.vpnEnabled, onCheckedChange = { onChange(s.copy(vpnEnabled = it)) }) }
-            Text("WARP • OpenVPN • Xray Stealth. Sirf verified connect ke baad Connected.", style = MaterialTheme.typography.bodySmall) }
+            Text("WARP • OpenVPN • Xray Stealth. Shows Connected only after a verified connect.", style = MaterialTheme.typography.bodySmall) }
         item { Text("DNS", style = MaterialTheme.typography.titleMedium)
             DnsProviders.ALL.forEach { p -> Row { RadioButton(selected = s.dns.providerId == p.id, onClick = { onChange(s.copy(dns = s.dns.copy(providerId = p.id))) }); Text(p.name + if (p.blocksAds) " (ads blocked)" else "") } } }
         item { Text("Appearance", style = MaterialTheme.typography.titleMedium)
