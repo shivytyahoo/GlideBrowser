@@ -1,4 +1,4 @@
-# GlideBrowser
+# GlideBrowser — by Shiv
 
 ![GlideBrowser banner](docs/banner.png)
 
