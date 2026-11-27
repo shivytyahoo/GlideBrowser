@@ -9,9 +9,9 @@ import androidx.compose.ui.window.application
 import com.glidebrowser.dns.DnsProviders
 import com.glidebrowser.settings.BrowserSettings
 /** Windows: Compose Desktop + WebView2 (Edge runtime).
- *  Chromium bundle nahi karte — WebView2 Windows 10/11 me pehle se hota hai, installer ~20 MB.
- *  WebView2 ko JNI/COM bridge se jodna baaki hai — ye shell shared settings + tabs + media list dikhata hai,
- *  engine bridge `desktopApp/src/main/kotlin/.../WebView2Bridge.kt` me aayega (MS WebView2 SDK + JNA). */
+ *  No bundled Chromium — WebView2 ships with Windows 10/11, so the installer stays ~20 MB.
+ *  Connecting WebView2 through a JNI/COM bridge is still pending — this shell shows shared settings + tabs + media list;
+ *  the engine bridge will live in `desktopApp/src/main/kotlin/.../WebView2Bridge.kt` (MS WebView2 SDK + JNA). */
 @OptIn(ExperimentalMaterial3Api::class)
 fun main() = application {
     var settings by remember { mutableStateOf(BrowserSettings()) }
@@ -22,7 +22,7 @@ fun main() = application {
                 Column(Modifier.padding(p).padding(16.dp).fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Row { OutlinedTextField(value = url, onValueChange = { url = it }, modifier = Modifier.weight(1f), singleLine = true)
                         Button(onClick = {}) { Text("Go") } }
-                    Text("WebView2 view yahan aayega — Windows Edge runtime se page load hoga. Shared core: AdBlock / VPN / DNS / VideoSniffer same hai jo Android me hai.")
+                    Text("The WebView2 view will go here — pages will load through the Windows Edge runtime. Shared core: AdBlock / VPN / DNS / VideoSniffer, same as on Android.")
                     Text("AdBlock: ${if (settings.adBlockEnabled) "ON" else "OFF"} • VPN: ${if (settings.vpnEnabled) "ON" else "OFF"} • DNS: ${DnsProviders.byId(settings.dns.providerId).name}")
                     Row { Text("Stealth AdBlock"); Switch(checked = settings.adBlockEnabled, onCheckedChange = { settings = settings.copy(adBlockEnabled = it) }) }
                     Row { Text("VPN — IPChakra"); Switch(checked = settings.vpnEnabled, onCheckedChange = { settings = settings.copy(vpnEnabled = it) }) }
