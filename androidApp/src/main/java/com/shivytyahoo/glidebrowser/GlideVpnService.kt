@@ -2,9 +2,9 @@ package com.shivytyahoo.glidebrowser
 import android.content.Intent
 import android.net.VpnService
 import android.os.ParcelFileDescriptor
-/** S-AdShield ka local-only VpnService — sirf DNS traffic tunnel me jata hai, baaki traffic bahar.
- *  Poora DNS packet engine (DnsPacket.kt jaisa) S-AdShield repo se lena hai — yahan TUN setup + lifecycle hai.
- *  VPN (IPChakra) ON ho to ye service start MAT karo — Android pe ek hi VpnService chal sakta hai. */
+/** S-AdShield's local-only VpnService — only DNS traffic goes through the tunnel, the rest stays outside.
+ *  The full DNS packet engine (like DnsPacket.kt) comes from the S-AdShield repo — this file only has the TUN setup + lifecycle.
+ *  Do NOT start this service when the VPN (IPChakra) is ON — Android allows only one VpnService at a time. */
 class GlideVpnService : VpnService() {
     private var tun: ParcelFileDescriptor? = null
     companion object { const val STUB_IP = "10.10.10.3"; const val ACTION_STOP = "com.shivytyahoo.glidebrowser.STOP_VPN" }

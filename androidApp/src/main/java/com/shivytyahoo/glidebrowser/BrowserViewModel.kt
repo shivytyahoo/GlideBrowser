@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.util.UUID
-/** Ek ViewModel per feature — tabs/history/bookmarks ka single source. Network init se nahi chalata. */
+/** One ViewModel per feature — the single source for tabs/history/bookmarks. It does not run network initialisation. */
 class BrowserViewModel : ViewModel() {
     private val _tabs = MutableStateFlow(listOf(TabItem(UUID.randomUUID().toString(), "https://duckduckgo.com", "Home")))
     val tabs: StateFlow<List<TabItem>> = _tabs.asStateFlow()

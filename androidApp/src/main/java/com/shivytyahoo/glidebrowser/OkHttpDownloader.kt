@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
-/** Segmented + resume download (Range header). HLS: segments download karke concat karo. */
+/** Segmented download with resume (Range header). HLS: download segments, then concatenate them. */
 class OkHttpDownloader(private val client: OkHttpClient = OkHttpClient()) : MediaDownloader {
     override suspend fun downloadDirect(task: DownloadTask, onProgress: (Float) -> Unit): Boolean = withContext(Dispatchers.IO) {
         runCatching {
