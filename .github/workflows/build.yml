@@ -42,3 +42,21 @@ jobs:
       - run: ./gradlew :desktopApp:packageMsi --stacktrace
       - uses: actions/upload-artifact@v4
         with: { name: GlideBrowser-windows, path: desktopApp/build/compose/binaries/main/msi/ }
+
+  release:
+    needs: [android, windows]
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with: { name: GlideBrowser-android, path: release-files }
+      - uses: actions/download-artifact@v4
+        with: { name: GlideBrowser-windows, path: release-files }
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-${{ github.run_number }}
+          name: GlideBrowser 1.0.0 (build ${{ github.run_number }})
+          files: |
+            release-files/*.apk
+            release-files/*.msi
