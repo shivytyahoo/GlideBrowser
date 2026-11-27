@@ -15,7 +15,7 @@ jobs:
         with:
           packages: platform-tools
       - uses: gradle/actions/setup-gradle@v4
-      - run: gradle :androidApp:assembleRelease --stacktrace
+      - run: ./gradlew :androidApp:assembleRelease --stacktrace
       - uses: actions/upload-artifact@v4
         with: { name: GlideBrowser-android, path: androidApp/build/outputs/apk/release/ }
   windows:
@@ -27,6 +27,6 @@ jobs:
       # jpackage needs WiX 3.x to build the .msi — install it explicitly.
       - run: choco install wixtoolset -y
       - uses: gradle/actions/setup-gradle@v4
-      - run: gradle :desktopApp:packageMsi --stacktrace
+      - run: ./gradlew :desktopApp:packageMsi --stacktrace
       - uses: actions/upload-artifact@v4
         with: { name: GlideBrowser-windows, path: desktopApp/build/compose/binaries/main/msi/ }
