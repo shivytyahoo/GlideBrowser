@@ -24,7 +24,7 @@ object EasyListParser {
     }
     /** `||example.com/banner` = starts with the domain or a subdomain; `*` = wildcard segment. */
     fun matches(rule: FilterRule, url: String, pageHost: String?): Boolean {
-        val host = runCatching { java.net.URI(url).host ?: "" }.getOrNull() ?: return false
+        val host = extractHost(url)
         if (rule.domains.isNotEmpty() && pageHost != null && pageHost !in rule.domains) return false
         if (rule.thirdPartyOnly && pageHost != null && (host == pageHost || host.endsWith(".$pageHost"))) return false
         var pat = rule.pattern

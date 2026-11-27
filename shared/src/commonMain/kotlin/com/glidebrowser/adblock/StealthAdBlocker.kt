@@ -13,7 +13,8 @@ class StealthAdBlocker(
 ) {
     private val blocked = blockedDomains.map { it.trim().lowercase() }.toSet()
     fun shouldBlock(url: String): BlockDecision {
-        val host = runCatching { java.net.URI(url).host?.lowercase() }.getOrNull() ?: return BlockDecision(false)
+        val host = extractHost(url)
+        if (host.isEmpty()) return BlockDecision(false)
         if (allowlist.any { host == it || host.endsWith(".$it") }) return BlockDecision(false, "allowlisted")
         var cur: String? = host
         while (cur != null) {
@@ -27,4 +28,10 @@ class StealthAdBlocker(
         const val STUB_IP = "10.10.10.3"
         val EMPTY_GIF = byteArrayOf(0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 1, 0, 1, 0, 0x80.toByte(), 0, 0, 0, 0, 0, 0, 0, 0, 0x21, 0xF9.toByte(), 4, 1, 0, 0, 0, 0, 0x2C, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 0x44, 1, 0, 0x3B)
     }
+}
+
+/** Pure-Kotlin host extraction — common code cannot use java.net.URI. */
+internal fun extractHost(url: String): String {
+    val noScheme = url.substringAfter("://", url)
+    return noScheme.substringBefore('/').substringBefore(':').substringBefore('?').trim().lowercase()
 }
