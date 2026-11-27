@@ -9,11 +9,12 @@ jobs:
         with: { distribution: temurin, java-version: '17' }
       # setup-android's default packages include the retired `tools` package,
       # which sdkmanager has refused since 2026-09-15 (run #1 failed here in 10s).
-      # Gradle downloads the platform + build-tools it needs itself, so only
-      # platform-tools is installed here.
+      # Install the platform + build-tools explicitly: gradle.properties has no
+      # android.builder.sdkDownload=true, so Gradle cannot be relied on to
+      # download them itself.
       - uses: android-actions/setup-android@v3
         with:
-          packages: platform-tools
+          packages: platform-tools, platforms;android-34, build-tools;34.0.0
       - uses: gradle/actions/setup-gradle@v4
       # gradlew loses its exec bit when uploaded via the GitHub web UI.
       - run: chmod +x gradlew
