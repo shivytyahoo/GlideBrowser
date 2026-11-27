@@ -1,0 +1,24 @@
+name: Build GlideBrowser
+on: [workflow_dispatch]
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v3
+      - run: gradle :androidApp:assembleRelease --stacktrace
+      - uses: actions/upload-artifact@v4
+        with: { name: GlideBrowser-android, path: androidApp/build/outputs/apk/release/ }
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v3
+      - run: gradle :desktopApp:packageMsi --stacktrace
+      - uses: actions/upload-artifact@v4
+        with: { name: GlideBrowser-windows, path: desktopApp/build/compose/binaries/main/msi/ }
