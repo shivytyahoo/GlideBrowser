@@ -70,7 +70,7 @@ import com.glidebrowser.adblock.StealthAdBlocker
     Column(Modifier.fillMaxSize().padding(16.dp)) {
         Text("Downloads", style = MaterialTheme.typography.headlineSmall)
         TextButton(onClick = onBack) { Text("Back") }
-        if (media.isEmpty()) Text("No media detected yet. Kisi video wali site kholo — chip dikhega.")
+        if (media.isEmpty()) Text("No media detected yet. Open a page with a video — the media chip will appear.")
         LazyColumn { items(media) { m -> ListItem(headlineContent = { Text(m.fileName()) }, supportingContent = { Text(m.kind.name + " • " + m.url.take(60)) },
             trailingContent = { TextButton(onClick = {}) { Text("Download") } }) } }
     }
