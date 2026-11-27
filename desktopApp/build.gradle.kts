@@ -7,6 +7,6 @@ dependencies { implementation(project(":shared")); implementation(compose.deskto
   // implementation("...:org.eclipse.swt.win32.win32.x86_64:3.130.0") fails
   // resolution in run #18. Declare both jars directly and exclude the broken edges.
   implementation("org.eclipse.platform:org.eclipse.swt.win32.win32.x86_64:3.130.0") { exclude(group = "org.eclipse.platform", module = "org.eclipse.swt") }
-  implementation("org.eclipse.platform:org.eclipse.swt:3.130.0") { exclude(group = "org.eclipse.platform", module = "\${osgi.platform}") } }
+  implementation("org.eclipse.platform:org.eclipse.swt:3.130.0") { exclude(group = "org.eclipse.platform", module = "org.eclipse.swt.\${osgi.platform}") } }
 compose.desktop { application { mainClass = "com.shivytyahoo.glidebrowser.MainKt"
   nativeDistributions { targetFormats(TargetFormat.Msi); packageName = "GlideBrowser"; packageVersion = "1.0.0" } } }
