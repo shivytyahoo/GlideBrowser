@@ -111,11 +111,11 @@ private fun com.glidebrowser.video.DetectedMedia.fileName() = url.substringAfter
     val uri = LocalUriHandler.current
     Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text("About", style = MaterialTheme.typography.headlineSmall)
-        Text("GlideBrowser 1.0.0\nby Shivam Bhalla")
+        Text("GlideBrowser 1.0.0\nby Shiv")
         TextButton(onClick = { uri.openUri("https://github.com/shivytyahoo") }) { Text("GitHub: github.com/shivytyahoo") }
         TextButton(onClick = { uri.openUri("https://github.com/shivytyahoo/S-AdShield") }) { Text("S-AdShield — AdBlocker") }
         TextButton(onClick = { uri.openUri("https://github.com/shivytyahoo/IPChakra") }) { Text("IPChakra — VPN") }
-        Text("Open-source bases: FOSS Browser, Lightning, Privacy Browser, QuickTube, super-video-downloader, HaizhuBrowser. Aloha / Soul / Via / Pawxy closed-source hain — unka behaviour replicate kiya hai, code copy nahi.")
+        Text("Open-source bases: FOSS Browser, Lightning, Privacy Browser, QuickTube, super-video-downloader, HaizhuBrowser. Aloha / Soul / Via / Pawxy are closed-source — their behaviour was replicated, no code was copied.")
         TextButton(onClick = onBack) { Text("Back") }
     }
 }

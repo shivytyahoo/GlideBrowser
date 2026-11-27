@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 import com.shivytyahoo.glidebrowser.R
 import kotlinx.coroutines.delay
 /** Stylish animated splash — M3 motion only, no gradient / glass.
- *  Sequence (total ~1.8s, phir browser khulta hai):
+ *  Sequence (total ~1.8s, then the browser opens):
  *  1. Logo scale 0.7 -> 1.0 + fade in (spring)
  *  2. "GlideBrowser" letters fade/slide up
  *  3. Slogan "Glide Fast. Browse Free." fade in
- *  4. Progress bar 0 -> 100% (WebView warm-up ke saath)
- *  Animation band ho jati hai jab splash hat jata hai — hidden layer me kuch animate nahi hota. */
+ *  4. Progress bar 0 -> 100% (while the WebView warms up)
+ *  The animation stops when the splash is dismissed — nothing animates in a hidden layer. */
 @Composable fun SplashScreen(onFinished: () -> Unit) {
     var started by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { started = true; delay(1800); onFinished() }
