@@ -1,6 +1,6 @@
 package com.glidebrowser.vpn
 
-/** IPChakra (github.com/shivytyahoo/IPChakra) ka contract.
+/** The IPChakra (github.com/shivytyahoo/IPChakra) contract.
  *  Android impl = VpnService, Windows impl = wg/openvpn/xray sidecar process.
  *  “Connected” only after a verified connect — never a false Connected.
  */

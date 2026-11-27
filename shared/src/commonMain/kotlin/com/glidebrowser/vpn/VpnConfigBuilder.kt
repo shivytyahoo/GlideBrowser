@@ -1,7 +1,7 @@
 package com.glidebrowser.vpn
 /** IPChakra's AdShield-in-tunnel pattern — config generation, no secret hardcoded here. */
 object VpnConfigBuilder {
-    /** WireGuard: DNS line ko ad-blocking DNS pe badlo. */
+    /** WireGuard: change the DNS line to an ad-blocking DNS. */
     fun wireGuardWithAdBlocking(config: String, adDns: String = "94.140.14.14"): String {
         if (!config.contains("DNS =")) return config + "\nDNS = $adDns\n"
         return config.replace(Regex("DNS =.*"), "DNS = $adDns")
