@@ -1,9 +1,9 @@
 package com.glidebrowser.adblock
 
 /** Shared port of S-AdShield (github.com/shivytyahoo/S-AdShield).
- *  DNS + request dono layers ka contract. Platform code (Android WebView /
+ *  DNS + request contract for both layers. Platform code (Android WebView /
  *  Windows WebView2) implements this interface.
- *  Matching: suffix-walk — `doubleclick.net` se `ads.doubleclick.net` bhi block.
+ *  Matching: suffix-walk — `doubleclick.net` also blocks `ads.doubleclick.net`.
  */
 data class BlockDecision(val blocked: Boolean, val reason: String = "")
 
@@ -23,7 +23,7 @@ class StealthAdBlocker(
         return BlockDecision(false)
     }
     companion object {
-        /** Stub IP — S-AdShield jaisa: blocked domain ko empty-but-valid jawab. */
+        /** Stub IP — like S-AdShield: a blocked domain gets an empty-but-valid reply. */
         const val STUB_IP = "10.10.10.3"
         val EMPTY_GIF = byteArrayOf(0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 1, 0, 1, 0, 0x80.toByte(), 0, 0, 0, 0, 0, 0, 0, 0, 0x21, 0xF9.toByte(), 4, 1, 0, 0, 0, 0, 0x2C, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 0x44, 1, 0, 0x3B)
     }

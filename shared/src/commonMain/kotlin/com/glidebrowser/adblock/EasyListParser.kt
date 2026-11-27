@@ -1,5 +1,5 @@
 package com.glidebrowser.adblock
-/** Privacy Browser (Stoutner) jaisa EasyList parsing — `||`, `@@`, `$domain=`, `$third-party`, `*` wildcard.
+/** Privacy Browser (Stoutner)-style EasyList parsing — `||`, `@@`, `$domain=`, `$third-party`, `*` wildcard.
  *  Only the options WebView exposes are handled; the rest are ignored, never breaking a block. */
 data class FilterRule(val pattern: String, val isAllow: Boolean, val domains: Set<String> = emptySet(), val thirdPartyOnly: Boolean = false)
 object EasyListParser {
