@@ -24,7 +24,11 @@ jobs:
         run: echo "$KEYSTORE_BASE64" | base64 -d > androidApp/release.keystore
       - run: ./gradlew :androidApp:assembleRelease --stacktrace
         env:
-          KEYSTORE_PATH: androidApp/release.keystore
+          # Gradle resolves storeFile relative to the androidApp project dir,
+          # so this must be bare 'release.keystore' (the decode step already
+          # writes androidApp/release.keystore). 'androidApp/release.keystore'
+          # here doubled the path and broke validateSigningRelease in run #17.
+          KEYSTORE_PATH: release.keystore
           KEYSTORE_PASSWORD: ${{ secrets.GLIDEBROWSER_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.GLIDEBROWSER_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.GLIDEBROWSER_KEY_PASSWORD }}
